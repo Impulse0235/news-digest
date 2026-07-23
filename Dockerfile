@@ -18,7 +18,9 @@ COPY src/ ./src/
 COPY config/ ./defaults/
 
 COPY crontab /etc/cron.d/news-digest
-RUN chmod 0644 /etc/cron.d/news-digest && crontab /etc/cron.d/news-digest
+RUN sed -i 's/\r$//' /etc/cron.d/news-digest \
+    && chmod 0644 /etc/cron.d/news-digest \
+    && crontab /etc/cron.d/news-digest
 
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh

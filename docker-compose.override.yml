@@ -1,0 +1,17 @@
+# Compose automatically merges this file on top of docker-compose.yml
+# whenever it's present in the same folder — no flags needed.
+#
+# This tells Docker to build the image locally from the Dockerfile instead
+# of pulling ghcr.io/OWNER/news-digest:latest, which doesn't exist yet since
+# you haven't pushed to GitHub/GHCR.
+#
+# Once you do set up GHCR (see README), just delete or rename this file
+# and `docker compose up -d` will go back to pulling the published image.
+
+services:
+  news-web:
+    build: .
+    image: news-digest:local
+  news-cron:
+    build: .
+    image: news-digest:local

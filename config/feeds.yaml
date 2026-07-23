@@ -1,0 +1,11 @@
+# Edit this file to add or remove RSS feeds.
+# On first run against an empty bundle, this default copy gets placed at
+# /app/config/feeds.yaml — after that, your edits are never overwritten.
+
+feeds:
+  - name: "BBC World"
+    url: "http://feeds.bbci.co.uk/news/world/rss.xml"
+  - name: "Reuters World"
+    url: "https://feeds.reuters.com/reuters/topNews"
+  - name: "TechCrunch"
+    url: "https://techcrunch.com/feed/"

@@ -1,0 +1,28 @@
+# This is the file that lives in your portable bundle folder.
+# Replace OWNER below with your GitHub username once the image is published.
+
+services:
+  news-web:
+    image: ghcr.io/OWNER/news-digest:latest
+    command: ["python", "src/web.py"]
+    environment:
+      - ROLE=worker
+    depends_on:
+      - news-cron
+    ports:
+      - "8080:8080"
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+    restart: unless-stopped
+
+  news-cron:
+    image: ghcr.io/OWNER/news-digest:latest
+    environment:
+      - ROLE=owner
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+      - ./config:/app/config
+    restart: unless-stopped

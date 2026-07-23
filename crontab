@@ -1,0 +1,13 @@
+# Pulls new RSS items every 15 minutes — live as of this step.
+*/15 * * * * cd /app && python src/fetch.py >> /proc/1/fd/1 2>&1
+
+# Dedup + AI ranking/summarizing, ahead of the 7am send — live as of this step.
+45 6 * * * cd /app && python src/dedup.py >> /proc/1/fd/1 2>&1 && python src/summarize.py >> /proc/1/fd/1 2>&1
+
+# Daily digest email at 7am — live as of this step.
+0 7 * * * cd /app && python src/email_digest.py >> /proc/1/fd/1 2>&1
+
+# Keyword/breaking alert pass — live as of this step, every 30 minutes.
+*/30 * * * * cd /app && python src/alert_check.py >> /proc/1/fd/1 2>&1
+
+# cron needs a trailing newline

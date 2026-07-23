@@ -1,0 +1,10 @@
+# Edit this file to change what triggers an instant alert email.
+# Same first-run behavior as feeds.yaml: only copied in if missing.
+
+keywords:
+  - "data breach"
+  - "acquisition"
+
+breaking_terms:
+  - "breaking"
+  - "just in"

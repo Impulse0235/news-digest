@@ -116,18 +116,9 @@ def render_digest_html(created_at, payload, source_names=None):
 
     cards = "".join(render_story_card(i + 1, story) for i, story in enumerate(top10))
 
-    shown_rest = rest[:3]
     rest_rows = "".join(
-        render_rest_row(story, i == len(shown_rest) - 1) for i, story in enumerate(shown_rest)
+        render_rest_row(story, i == len(rest) - 1) for i, story in enumerate(rest)
     )
-    more_note = ""
-    if len(rest) > len(shown_rest):
-        remaining = len(rest) - len(shown_rest)
-        more_note = (
-            f'<tr><td style="padding:10px 0; font-size:14px; color:#333;">'
-            f'<span style="color:#8a94a3; font-style:italic;">+ {remaining} more stories '
-            f"in the full digest…</span></td></tr>"
-        )
 
     sources_line = source_names or "your configured feeds"
 
@@ -161,7 +152,6 @@ def render_digest_html(created_at, payload, source_names=None):
 
 <tr><td style="padding:0 32px 8px 32px;"><table role="presentation" width="100%" cellpadding="0" cellspacing="0">
 {rest_rows}
-{more_note}
 </table></td></tr>
 
 <tr><td style="background-color:#f7f9fb; padding:22px 32px; text-align:center;">

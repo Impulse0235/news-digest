@@ -1,16 +1,18 @@
-PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin
+# Supercronic inherits the container's PATH and environment variables
+# automatically, and logs job output to stdout/stderr on its own — no PATH=
+# line, no environment-sourcing, no output redirection needed.
 
-# Pulls new RSS items every 15 minutes — live as of this step.
-*/15 * * * * cd /app && python src/fetch.py >> /proc/1/fd/1 2>&1
+# Pulls new RSS items every 15 minutes.
+*/15 * * * * cd /app && python src/fetch.py
 
-# Dedup + AI ranking/summarizing, ahead of the 7am send — live as of this step.
-45 6 * * * cd /app && python src/dedup.py >> /proc/1/fd/1 2>&1 && python src/summarize.py >> /proc/1/fd/1 2>&1
+# Dedup + AI ranking/summarizing, ahead of the 7am send.
+45 6 * * * cd /app && python src/dedup.py && python src/summarize.py
 
-# Daily digest email at 7am — live as of this step.
-0 7 * * * cd /app && python src/email_digest.py >> /proc/1/fd/1 2>&1
+# Daily digest email at 7am.
+0 7 * * * cd /app && python src/email_digest.py
 
 # Keyword/breaking alert pass — every 30 minutes, but only between 8am and
 # 10pm. Two lines: the first covers 8:00 through 21:30, the second adds one
 # final check exactly at 22:00 (10pm) so nothing fires overnight until 8am.
-*/30 8-21 * * * cd /app && python src/alert_check.py >> /proc/1/fd/1 2>&1
-0 22 * * * cd /app && python src/alert_check.py >> /proc/1/fd/1 2>&1
+*/30 8-21 * * * cd /app && python src/alert_check.py
+0 22 * * * cd /app && python src/alert_check.py

@@ -1,3 +1,5 @@
+PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin
+
 # Pulls new RSS items every 15 minutes — live as of this step.
 */15 * * * * cd /app && python src/fetch.py >> /proc/1/fd/1 2>&1
 
